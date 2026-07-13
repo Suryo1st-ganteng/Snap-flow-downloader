@@ -20,10 +20,19 @@ jobs:
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@v4
 
-    - name: Create Debug Keystore inside Downloader Folder
+    - name: Create Debug Keystore Everywhere
       run: |
+        # Buat kunci debug utama
+        keytool -genkey -v -keystore debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Android Debug,O=Android,C=US"
+        
+        # Gandakan ke folder downloader (jika ada di luar)
         mkdir -p downloader
-        keytool -genkey -v -keystore downloader/debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Android Debug,O=Android,C=US"
+        cp debug.keystore downloader/debug.keystore
+        
+        # Gandakan ke dalam folder app dan sub-foldernya jika dibutuhkan
+        mkdir -p app/downloader
+        cp debug.keystore app/debug.keystore
+        cp debug.keystore app/downloader/debug.keystore
 
     - name: Build APK
       run: gradle assembleDebug --no-daemon
