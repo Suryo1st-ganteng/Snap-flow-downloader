@@ -1,0 +1,6 @@
+{
+  "name": "SnapTube Lite",
+  "description": "Aplikasi pengunduh video media sosial dengan konversi MP3 otomatis, resolusi lengkap, dan download paralel di latar belakang.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
